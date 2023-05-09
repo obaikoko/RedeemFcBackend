@@ -88,6 +88,34 @@ const getUserInfo = asyncHandler(async (req, res) => {
   }
 });
 
+
+const updateUser = asyncHandler( async(req, res) => {
+
+  
+  const user = await User.findById(req.params.id)
+  if (!user) {
+    res.status(400)
+    throw new Error('User not found!')
+  }
+
+  const {
+    userName,
+    club,
+    fullName,
+    age,
+    phoneNumber,
+    state,
+    password,
+   
+  } = req.body;
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+  const updatedUser = await User.findByIdAndUpdate(req.params.id, {userName, club, fullName, age, phoneNumber, state, password: hashedPassword}, {new: true})
+   res.status(200).json(updatedUser)
+   
+
+})
+
 // @desc Get  Userdate
 // @privacy public
 // @route POST /api/users
@@ -113,4 +141,5 @@ module.exports = {
   getUsers,
   getUserInfo,
   getMe,
+  updateUser
 };
