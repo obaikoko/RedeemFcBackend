@@ -8,8 +8,8 @@ const port = process.env.PORT || 5000;
 const app = express();
 app.use(cors());
 connectDB();
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({limit: '500mb'}));
+app.use(express.urlencoded({ extended: true }));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use(errorHandler);
 

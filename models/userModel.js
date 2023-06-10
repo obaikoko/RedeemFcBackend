@@ -4,10 +4,10 @@ mongoose.set('strictQuery', true);
 const userSchema = mongoose.Schema(
   {
     club: {
-      type: String
+      type: String,
     },
     desc: {
-      type: String
+      type: String,
     },
     userName: {
       type: String,
@@ -15,11 +15,23 @@ const userSchema = mongoose.Schema(
     },
     fullName: {
       type: String,
-      required: [true, 'please add your name ']
+      required: [true, 'please add your name '],
     },
     age: {
       type: String,
       // required: [true, 'Please add a last name'],
+    },
+    image: {
+      publicId: {
+        type: String,
+      },
+      url: {
+        type: String,
+      },
+      name: {
+        type: String,
+      },
+     
     },
     phoneNumber: {
       type: String,
@@ -38,10 +50,10 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, 'Please add a password'],
     },
-  }, {
-    timestamps: true
+  },
+  {
+    timestamps: true,
   }
-  
 );
 
 module.exports = mongoose.model('User', userSchema);
